@@ -23,10 +23,10 @@ router.get ('/libros', async (req, res) => {
   res.send(books);
 });
 
-router.get('/libro/:id', async (req,res) => {
+router.get('/libro/:id', async (req, res) => {
   //console.log('la ruta trajo '+ req.params.id)
   const book = await api.getBookById(req.params.id);
-  res.send (book);
+  res.render ('pages/libro', {book});
 });
 
 module.exports = router;
