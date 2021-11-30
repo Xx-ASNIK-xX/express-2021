@@ -13,6 +13,9 @@ a {
   color: #00B7FF;
 }
 
+img{
+  width: 100%;
+}
 .nav {
   display: flex;
   list-style: none;
@@ -29,4 +32,35 @@ a {
 }
 .nav-item_link:hover {
   color: black;
+}
+
+.lista{
+max-width: 1200px;
+margin: 40px auto;
+list-style-type: none;
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 20px;
+
+}
+
+.lista-item_link{
+  background-color: #EAEAEA;
+  border-radius: 2px;
+  display: block;
+  transition: bacgraund-color 0.4s;
+  }
+.lista-item_link:hover{
+  background-color: #FAFAFA;
+}
+.lista-item_titulo{
+padding: 15px;
+}
+.lista-item_img{
+height: 150px;
+object-fit: cover;
+transition: filter 0.4s;
+}
+.lista-item_img:hover .lista-item_img{
+  filter: brightness(1.1);
 }

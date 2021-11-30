@@ -1,3 +1,6 @@
+const { Op } = require("sequelize");
+const { contained } = require("sequelize/dist/lib/operators");
+
 // traer la DB
 const db = require('../models');
 
@@ -12,7 +15,6 @@ const getBooks = async (id) => {
 
     return books;
 }
-
 const getBookById = async (id) => { 
     console.log('+*+*+*+*+*+*+*+*+*+*+*+*+*')
     console.log('El Id que llego a /api es' + id)
@@ -26,9 +28,25 @@ const getBookById = async (id) => {
 
     return book;
 }
+const searchByTitle = async (titulo) => {
+    // Op.substring toma una cadena y le agrega %
+    const results = await db.libro.findAll({
+        where: {
+            titulo: {
+            [Op.substring]: titulo
+            }
+        },
+        include: db.autor
+    }).then(result => {
+        return result;
+    });
+
+    return results;
+}
 
 // Exportamos las funciones
 module.exports = {
     getBooks,
-    getBookById
+    getBookById,
+    searchByTitle
 }

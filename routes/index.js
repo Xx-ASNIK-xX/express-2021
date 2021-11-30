@@ -8,6 +8,17 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+
+router.get('/resultados', async (req, res) =>{
+  //conseguir lo que el usuario tipeo en el campo "titulo"
+  console.log(req.query);
+  const { titulo } = req.query;
+
+  // enviar titulos a la llamada de la API
+  const results = await api.searchByTitle(titulo);
+  res.send(results);
+});
+
 /* GET nosotros page */
 router.get('/nosotros', (req, res) => {
   res.render('pages/nosotros', { title: 'Nosotros' });
@@ -20,7 +31,7 @@ router.get('/contacto', (req, res) => {
 
 router.get ('/libros', async (req, res) => {
   const books = await api.getBooks();
-  res.send(books);
+  res.render('pages/libros', {books});
 });
 
 router.get('/libro/:id', async (req, res) => {

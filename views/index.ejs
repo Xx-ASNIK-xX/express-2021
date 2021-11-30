@@ -8,5 +8,14 @@
     <%- include('./partials/nav.ejs') %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
+    
+    <form action="/resultados" method="GET">
+      <label>
+        Buscar por titulo
+        <input type="search" name="titulo">
+      </label>
+      <input type="submit" value="Buscar">
+    </form>
+    
   </body>
 </html>
