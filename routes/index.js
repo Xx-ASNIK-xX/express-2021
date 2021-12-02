@@ -1,22 +1,43 @@
 var express = require('express');
 var router = express.Router();
 
-const api = require ('../api');
+// Traigo TODAS las funciones de la API
+const api = require('../api');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-
-router.get('/resultados', async (req, res) =>{
-  //conseguir lo que el usuario tipeo en el campo "titulo"
-  console.log(req.query);
+/* GET /resultados page */
+router.get('/resultados', async (req, res) => {
+  // Conseguir lo que el usuario tipeó en el campo "titulo"
+  // const titulo = req.query.titulo;
   const { titulo } = req.query;
 
-  // enviar titulos a la llamada de la API
+  // Enviar titulo a la llamada de la API
   const results = await api.searchByTitle(titulo);
+
   res.send(results);
+});
+
+/* GET agregar page */
+router.get('/agregar', async (req, res) => {
+  const authors = await api.getAuthors();
+
+  console.log(authors);
+
+  // Le envío los autores al EJS
+  res.render('pages/agregar', { authors });
+});
+
+/*POST  agregar , libro proceso*/
+router.post('/agregar-libro', (req, res) =>{
+  console.log(req.body);
+  const { titulo, precio, portada, autorId} = req.body;
+  api.addBook(titulo, precio, portada, autorId);
+
+  res.send('Vas Bien');
 });
 
 /* GET nosotros page */
@@ -29,15 +50,20 @@ router.get('/contacto', (req, res) => {
   res.render('pages/contacto', { title: 'Contacto' });
 });
 
-router.get ('/libros', async (req, res) => {
+// localhost:3000/libros
+router.get('/libros', async (req, res) => {
+  // Llamar a la función getBooks
   const books = await api.getBooks();
-  res.render('pages/libros', {books});
+
+  // Devolver el JSON con los libros recibidos
+  res.render('pages/libros', { books });
 });
 
 router.get('/libro/:id', async (req, res) => {
-  //console.log('la ruta trajo '+ req.params.id)
+  // console.log(req.params.id);
   const book = await api.getBookById(req.params.id);
-  res.render ('pages/libro', {book});
+
+  res.render('pages/libro', { book });
 });
 
 module.exports = router;
