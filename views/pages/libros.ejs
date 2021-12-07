@@ -16,7 +16,7 @@
         <% books.forEach(book => { %>
             <li class="lista-item">
                 <a href= "/libro/<%= book.idLibro %>" class="lista-item_link">
-                    <img src="/images/gatito.jpg" alt="" class="lista-item_img">
+                    <img src="<%= book.portada %>" alt="" class="lista-item_img">
                     <h2 class="lista-item_titulo"><%= book.titulo %></h2>
                 </a> 
             </li>
