@@ -47,9 +47,11 @@ router.get('/agregar-autor', (req, res) =>{
 
 /* Puedo compartir y usuar metodos distintos 
 (GET y POST)  */
-router.post('/agregar-autor', (req, res) => {
-  console.log('El usuario tipeo', req.body.nombreCompleto);
-  
+router.post('/agregar-autor', async (req, res) => {
+  //console.log('El usuario tipeo', req.body.nombreCompleto);
+  console.log(await api.addAuthor(req.body.nombreCompleto)); 
+
+
   //conexion a la DB, enviando el nombreCompleto y agregando el reg
   res.send('estas en la version de POST');
 });
